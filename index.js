@@ -15,7 +15,7 @@ app.get("/", (req, res) => {
 //db
 const MYSQL_CONFIG = {
   host: "104.198.133.80",
-  user: "testing_user",
+  user: "muucoop",
   password: "user",
   database: "testing_db",
 };
