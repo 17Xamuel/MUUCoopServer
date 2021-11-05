@@ -91,6 +91,16 @@ app.post("/app/login", (req, res) => {
   );
 });
 
+app.get("/app/all_members", (req, res) => {
+  conn.query("SELECT * FROM member_tbl", (err, result) => {
+    if (err) {
+      throw err;
+    } else {
+      res.send({ members: result });
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server started on port ${PORT}....`);
 });
