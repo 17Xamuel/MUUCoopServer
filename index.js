@@ -42,26 +42,27 @@ app.post("/app/new_member", (req, res) => {
                 mbr_number_result[mbr_number_result.length - 1].member_number
               ) + 1
             : 1;
+        let insert_obj = {
+          member_number,
+          member_first_name: req.body.member_first_name,
+          member_surname: req.body.member_surname,
+          member_nin: req.body.member_nin,
+          member_email: req.body.member_email,
+          member_phone: req.body.member_phone,
+          member_password: req.body.member_password,
+          member_next_of_kin: req.body.member_next_of_kin,
+          member_next_of_kin_phone: req.body.member_next_of_kin_phone,
+          member_location: req.body.member_location,
+        };
         conn.query(
           "INSERT INTO member_tbl SET ?",
-          {
-            member_number,
-            member_first_name: req.body.member_first_name,
-            member_surname: req.body.member_surname,
-            member_nin: req.body.member_nin,
-            member_email: req.body.member_email,
-            member_phone: req.body.member_phone,
-            member_password: req.body.member_password,
-            member_next_of_kin: req.body.member_next_of_kin,
-            member_next_of_kin_phone: req.body.member_next_of_kin_phone,
-            member_location: req.body.member_location,
-          },
+          insert_obj,
           (err, result) => {
             if (err) {
               res.send({ data: "Error" });
               throw err;
             } else {
-              res.send({ registered: true, data: req.body });
+              res.send({ data: { ...insert_obj } });
             }
           }
         );
